@@ -38,6 +38,8 @@ let currentPlayer = 0;
 // play: nos dice si el juego está activo
 let play = true;
 
+// llamo a función que inicializa el juego
+
 function generateRandom(a, b) {
   a = Math.trunc(a);
   b = Math.trunc(b);
@@ -51,10 +53,10 @@ function generateRandom(a, b) {
   return Math.round(d * (b - a)) + a;
 }
 console.log(generateRandom(6, 1));
-/*console.log(diceImage.outerHTML);
+/* console.log(diceImage.outerHTML);
 setTimeout(() => {
   diceImage.src = "dice-1.png";
-}, 3000);*/
+}, 3000); */
 
 function switchUser() {
   if (currentPlayer === 0) {
@@ -100,7 +102,7 @@ holdScore.addEventListener('click', function () {
         currentScore0 = 0;
         currentScoreField0.textContent = 0;
         if (score0 >= 100) {
-          player0Name.textContent = 'Player 0 is the WINNER!';
+          player0Name.textContent = 'Player 1 is the WINNER!';
           play = false;
           break;
         }
@@ -112,7 +114,7 @@ holdScore.addEventListener('click', function () {
         currentScore1 = 0;
         currentScoreField1.textContent = 0;
         if (score1 >= 100) {
-          player1Name.textContent = 'Player 1 is the WINNER!';
+          player1Name.textContent = 'Player 2 is the WINNER!';
           play = false;
           break;
         }
@@ -121,3 +123,23 @@ holdScore.addEventListener('click', function () {
     }
   }
 });
+
+newGame.addEventListener('click', initApp);
+
+function initApp() {
+  play = true;
+  currentPlayer = 1;
+  switchUser();
+  currentPlayer = 0;
+  currentScore0 = 0;
+  score0 = 0;
+  currentScoreField0.textContent = 0;
+  scoreField0.textContent = 0;
+  player0Name.textContent = 'PLAYER 1';
+  currentPlayer = 0;
+  currentScore0 = 0;
+  score0 = 0;
+  currentScoreField0.textContent = 0;
+  scoreField0.textContent = 0;
+  player0Name.textContent = 'PLAYER 1';
+}
