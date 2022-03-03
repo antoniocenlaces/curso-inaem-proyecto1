@@ -1,4 +1,7 @@
+Antonio José González Almela
+
 # curso-inaem-proyecto1
+
 Pig game
 
 Gana el jugador que primero llega a 100 puntos.
@@ -8,10 +11,10 @@ Si sacas un 1, pierdes los puntos del turno (no los acumulados) y el turno se ce
 
 ## Tareas
 
-- Implementar el código para que funcione tal y como está en la carpeta *build*
-
+- Implementar el código para que funcione tal y como está en la carpeta _build_
 
 ## Pasos previos
+
 - Ejecutar un FORK de mi proyecto.
 - Actualizar el Readme con vuestro nombre en la parte superior, para poder hacer un seguimiento
 - Configurar como un proyecto de node para tener eslint, live-server....
