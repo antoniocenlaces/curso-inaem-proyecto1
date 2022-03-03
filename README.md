@@ -1,8 +1,6 @@
-Antonio José González Almela
-
 # curso-inaem-proyecto1
 
-Pig game
+Pig game by Antonio José González Almela
 
 Gana el jugador que primero llega a 100 puntos.
 Cada vez que lanzas el dado acumulas puntos en tu turno.
