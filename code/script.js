@@ -39,6 +39,7 @@ let currentPlayer = 0;
 let play = true;
 
 // llamo a función que inicializa el juego
+initApp();
 
 function generateRandom(a, b) {
   a = Math.trunc(a);
@@ -76,7 +77,7 @@ rollDice.addEventListener('click', function () {
   if (play) {
     const d = generateRandom(1, 6);
     diceImage.src = 'dice-' + d + '.png';
-    if (d == 1) {
+    if (d === 1) {
       switchUser();
     } else {
       switch (currentPlayer) {
@@ -127,19 +128,21 @@ holdScore.addEventListener('click', function () {
 newGame.addEventListener('click', initApp);
 
 function initApp() {
+  // activo juego con play
   play = true;
+  // jugador actual a 1 para que switchUser() lo cambie
   currentPlayer = 1;
+  // cambio usuario
   switchUser();
-  currentPlayer = 0;
-  currentScore0 = 0;
+  // score máximo de player0 a 0
   score0 = 0;
   currentScoreField0.textContent = 0;
   scoreField0.textContent = 0;
   player0Name.textContent = 'PLAYER 1';
-  currentPlayer = 0;
-  currentScore0 = 0;
-  score0 = 0;
-  currentScoreField0.textContent = 0;
-  scoreField0.textContent = 0;
-  player0Name.textContent = 'PLAYER 1';
+  // inicializo para player1
+  currentScore1 = 0;
+  score1 = 0;
+  currentScoreField1.textContent = 0;
+  scoreField1.textContent = 0;
+  player1Name.textContent = 'PLAYER 2';
 }
