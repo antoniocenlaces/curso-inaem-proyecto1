@@ -1,5 +1,4 @@
 'use strict';
-// Buscamos los elementos activos del juego en el DOM
 // diceImage: imagen del dado a representar
 const diceImage = document.querySelector('.dice');
 // player0: sección del player--0
@@ -23,125 +22,68 @@ const currentScoreField1 = document.getElementById('current--1');
 const player0Name = document.getElementById('name--0');
 // player1Name
 const player1Name = document.getElementById('name--1');
-
 // Variables para controlar el juego
-// score0: almacena el score total del player0
-let score0 = 0;
-// score1: almacena el score total del player1
-let score1 = 0;
-// currentScore0: almacena el score actual total del player0
-let currentScore0 = 0;
-// score1: almacena el score actual total del player1
-let currentScore1 = 0;
-// currentPlayer
+// score[]: almacena el score total de cada player
+const score = [0, 0];
+// currentScore[]: almacena el score actual total de cada player
+let currentScore = 0;
+// currentPlayer indicador de jugador actual
 let currentPlayer = 0;
 // play: nos dice si el juego está activo
 let play = true;
-
-// llamo a función que inicializa el juego
 initApp();
-
-function generateRandom(a, b) {
-  a = Math.trunc(a);
-  b = Math.trunc(b);
-  if (a > b) {
-    const c = a;
-    a = b;
-    b = c;
-  }
-  const d = Math.random();
-  console.log(d);
-  return Math.round(d * (b - a)) + a;
-}
-console.log(generateRandom(6, 1));
-/* console.log(diceImage.outerHTML);
-setTimeout(() => {
-  diceImage.src = "dice-1.png";
-}, 3000); */
-
 function switchUser() {
-  if (currentPlayer === 0) {
-    player0.classList.remove('player--active');
-    player1.classList.add('player--active');
-    currentScore0 = 0;
-    currentPlayer = 1;
-  } else {
-    player1.classList.remove('player--active');
-    player0.classList.add('player--active');
-    currentScore1 = 0;
-    currentPlayer = 0;
-  }
+  player0.classList.toggle('player--active');
+  player1.classList.toggle('player--active');
+  currentScore = 0;
+  currentPlayer = currentPlayer ? 0 : 1;
 }
-
 rollDice.addEventListener('click', function () {
   if (play) {
-    const d = generateRandom(1, 6);
-    diceImage.src = 'dice-' + d + '.png';
+    const d = Math.round(Math.random() * 5) + 1;
+    diceImage.src = `dice-${d}.png`;
     if (d === 1) {
       switchUser();
     } else {
-      switch (currentPlayer) {
-        case 0:
-          currentScore0 = currentScore0 + d;
-          currentScoreField0.textContent = currentScore0;
-          break;
-        case 1:
-          currentScore1 = currentScore1 + d;
-          currentScoreField1.textContent = currentScore1;
-          break;
-      }
+      const currentScoreField = currentPlayer
+        ? currentScoreField1
+        : currentScoreField0;
+      currentScore += d;
+      currentScoreField.textContent = currentScore;
     }
   }
 });
-
 holdScore.addEventListener('click', function () {
   if (play) {
-    switch (currentPlayer) {
-      case 0:
-        score0 = score0 + currentScore0;
-        scoreField0.textContent = score0;
-        currentScore0 = 0;
-        currentScoreField0.textContent = 0;
-        if (score0 >= 100) {
-          player0Name.textContent = 'Player 1 is the WINNER!';
-          play = false;
-          break;
-        }
-        switchUser();
-        break;
-      case 1:
-        score1 = score1 + currentScore1;
-        scoreField1.textContent = score1;
-        currentScore1 = 0;
-        currentScoreField1.textContent = 0;
-        if (score1 >= 100) {
-          player1Name.textContent = 'Player 2 is the WINNER!';
-          play = false;
-          break;
-        }
-        switchUser();
-        break;
+    const currentScoreField = currentPlayer
+      ? currentScoreField1
+      : currentScoreField0;
+    const scoreField = currentPlayer ? scoreField1 : scoreField0;
+    const player = currentPlayer ? player1Name : player0Name;
+    score[currentPlayer] += currentScore;
+    scoreField.textContent = score[currentPlayer];
+    currentScore = 0;
+    currentScoreField.textContent = 0;
+    if (score[currentPlayer] >= 100) {
+      player.textContent = `Player ${currentPlayer + 1} is the WINNER!`;
+      play = false;
+    } else {
+      switchUser();
     }
   }
 });
-
 newGame.addEventListener('click', initApp);
-
 function initApp() {
-  // activo juego con play
   play = true;
-  // jugador actual a 1 para que switchUser() lo cambie
-  currentPlayer = 1;
-  // cambio usuario
-  switchUser();
-  // score máximo de player0 a 0
-  score0 = 0;
+  currentPlayer = 0;
+  score[0] = 0;
+  score[1] = 0;
+  currentScore = 0;
+  player1.classList.remove('player--active');
+  player0.classList.add('player--active');
   currentScoreField0.textContent = 0;
   scoreField0.textContent = 0;
   player0Name.textContent = 'PLAYER 1';
-  // inicializo para player1
-  currentScore1 = 0;
-  score1 = 0;
   currentScoreField1.textContent = 0;
   scoreField1.textContent = 0;
   player1Name.textContent = 'PLAYER 2';
